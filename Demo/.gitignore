@@ -1,0 +1,23 @@
+# Ignorar carpetas de compilación
+[Dd]ebug/
+[Rr]elease/
+[Bb]in/
+[Oo]bj/
+
+# Ignorar la carpeta de la solución de Visual Studio
+.vs/
+
+# Ignorar archivos de usuario y de IntelliSense
+*.suo
+*.user
+*.log
+*.pdb
+*.sbr
+
+# NuGet Packages
+packages/
+*.nupkg
+
+# Otros archivos comunes
+*.bak
+*.tmp
