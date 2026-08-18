@@ -1,8 +1,10 @@
-﻿// Esto es un comentario de una sola línea
+﻿using DemoConsola;
+// Esto es un comentario de una sola línea
 /* Esto es un comentario
  * de varias líneas */
 
 // Variables
+
 var variable = "Cualquier valor";
 bool esActivo = false;
 short enteroCorto = 10;
@@ -108,4 +110,32 @@ int numero = Convert.ToInt32(Console.ReadLine());
 Console.WriteLine($"El factorial de {numero} es: {factorial(numero)}");
 
 // POO - Programación Orientada a Objetos
-// Siguiente Clase...
+Persona persona = new Persona();
+persona.cedulaIdentidad = "123456";
+persona.nombres = "Juan";
+persona.primerApellido = "Pérez";
+persona.segundoApellido = "López";
+persona.fechaNacimiento = new DateOnly(2005, 12, 25);
+persona.celular = 71717171;
+persona.saludar();
+Console.WriteLine($"edad: {persona.calcularEdad()}");
+
+var estudiante = new Estudiante
+{
+    cedulaIdentidad = "654321",
+    nombres = "María",
+    primerApellido = "Guzmán",
+    segundoApellido = "Suárez",
+    fechaNacimiento = new DateOnly(2006, 8, 6),
+    celular = 727277272,
+    carnetUniversitario = "26-1234"
+};
+estudiante.saludar();
+
+// Clases abstractas
+//FiguraGeometrica figura = new FiguraGeometrica(); // Da error porque no se instancian las clases abstractas
+Cuadrado cuadrado = new Cuadrado(5);
+Console.WriteLine($"Cuadrado - Área: {cuadrado.area()}, Perímetro: {cuadrado.perimetro()}");
+
+FiguraGeometrica rectangulo = new Rectangulo(4, 6);
+Console.WriteLine($"Rectángulo - Área: {rectangulo.area()}, Perímetro: {rectangulo.perimetro()}");
