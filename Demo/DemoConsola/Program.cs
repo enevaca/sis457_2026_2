@@ -139,3 +139,41 @@ Console.WriteLine($"Cuadrado - Área: {cuadrado.area()}, Perímetro: {cuadrado.p
 
 FiguraGeometrica rectangulo = new Rectangulo(4, 6);
 Console.WriteLine($"Rectángulo - Área: {rectangulo.area()}, Perímetro: {rectangulo.perimetro()}");
+
+// Manejo de Excepciones
+int dividendo, divisor, resultado;
+try
+{
+    Console.Write("Introduzca el dividendo: ");
+    dividendo = Convert.ToInt32(Console.ReadLine());
+
+    Console.Write("Introduzca el divisor: ");
+    divisor = Convert.ToInt32(Console.ReadLine());
+
+    resultado = dividendo / divisor;
+    Console.WriteLine($"El resultado de la división es {resultado}");
+}
+catch (Exception)
+{
+    Console.Error.WriteLine("No es posible la división por Cero.");
+}
+finally
+{
+    resultado = 0;
+}
+
+// Programación asíncrona
+metodoAsincrono();
+Console.WriteLine("Presione cualquier tecla para salir");
+Console.ReadLine();
+
+static async void metodoAsincrono() {
+    await metodoDeLargaDuracion();
+}
+
+static async Task<int> metodoDeLargaDuracion() {
+    Console.WriteLine("Inciando método de larga duración");
+    await Task.Delay(5000);
+    Console.WriteLine("Fin de la tarea de larga duración");
+    return 0;
+}
