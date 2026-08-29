@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="DemoConsola/DemoConsola.csproj" />
+  <Project Path="TresEnRaya/TresEnRaya.csproj" Id="17497469-73b1-4baa-9cc2-b1e4cec9f5d8" />
 </Solution>
