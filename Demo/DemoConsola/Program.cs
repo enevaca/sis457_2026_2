@@ -1,4 +1,5 @@
-﻿using DemoConsola;
+﻿using DemoBiblioteca;
+using DemoConsola;
 // Esto es un comentario de una sola línea
 /* Esto es un comentario
  * de varias líneas */
@@ -177,3 +178,11 @@ static async Task<int> metodoDeLargaDuracion() {
     Console.WriteLine("Fin de la tarea de larga duración");
     return 0;
 }
+
+// Biblioteca de clases
+int suma = Calculadora.sumar(56, 10);
+int resta = Calculadora.restar(56, 10);
+int multiplicacion = Calculadora.multiplicar(5, 6);
+int division = Calculadora.dividir(30, 15);
+int modulo = Calculadora.modulo(10, 3);
+Console.WriteLine($"Suma: {suma}, Resta: {resta}, Multiplicación: {multiplicacion}, División: {division}, Módulo: {modulo}");
