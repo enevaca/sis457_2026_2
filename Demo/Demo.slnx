@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="DemoBiblioteca/DemoBiblioteca.csproj" Id="9174bc98-4018-4e8c-99a3-aee5372a45a4" />
   <Project Path="DemoConsola/DemoConsola.csproj" />
+  <Project Path="DemoPrueba/DemoPrueba.csproj" Id="95cc4b79-8228-4518-a8fe-c7aae7b1d016" />
   <Project Path="TresEnRaya/TresEnRaya.csproj" Id="17497469-73b1-4baa-9cc2-b1e4cec9f5d8" />
 </Solution>
