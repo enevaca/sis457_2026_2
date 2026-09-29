@@ -109,6 +109,20 @@ ALTER TABLE CompraDetalle ADD usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER
 ALTER TABLE CompraDetalle ADD fechaRegistro DATETIME NOT NULL DEFAULT GETDATE();
 ALTER TABLE CompraDetalle ADD estado SMALLINT NOT NULL DEFAULT 1; -- -1: Eliminado, 0: Inactivo, 1: Activo
 
+GO
+DROP PROC IF EXISTS paProductoListar;
+GO
+CREATE PROC paProductoListar @parametro VARCHAR(50)
+AS
+  SELECT p.id, p.idUnidadMedida, p.codigo, p.descripcion, um.descripcion AS unidadMedida,
+		 p.saldo, p.precioVenta, p.usuarioRegistro, p.fechaRegistro, p.estado
+  FROM Producto p
+  INNER JOIN UnidadMedida um ON um.id = p.idUnidadMedida
+  WHERE p.estado = 1 AND p.codigo+p.descripcion+um.descripcion LIKE '%'+REPLACE(@parametro,' ','%')+'%'
+  ORDER BY p.descripcion;
+GO
+EXEC paProductoListar 'bond carta';
+
 -- DML
 INSERT INTO UnidadMedida (descripcion)
 VALUES ('Caja'), ('Docena'), ('Metro'), ('Paquete'), ('Pliego'), ('Unidad');
