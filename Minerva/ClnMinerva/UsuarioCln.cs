@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace ClnMinerva
 {
-    public class UnidadMedidaCln
+    public class UsuarioCln
     {
-        public static List<UnidadMedida> listar()
+        public static Usuario validar(string usuario, string clave)
         {
             using (var context = new MinervaEntities())
             {
-                return context.UnidadMedida
-                    .Where(x => x.estado == (short)Estado.Activo)
-                    .OrderBy(x => x.descripcion).ToList();
+                return context.Usuario
+                    .Where(x => x.usuario1 == usuario && x.clave == clave)
+                    .FirstOrDefault();
             }
         }
     }

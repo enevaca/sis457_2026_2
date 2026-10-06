@@ -47,7 +47,7 @@ namespace ClnMinerva
                 var existe = context.Producto.Find(id);
                 if (existe == null) throw new Exception($"El producto con id {id} no existe");
 
-                existe.estado = -1;
+                existe.estado = (short)Estado.Eliminado;
                 existe.usuarioRegistro = usuario;
                 return context.SaveChanges();
             }
@@ -67,7 +67,7 @@ namespace ClnMinerva
         {
             using (var context = new MinervaEntities())
             {
-                return context.Producto.Where(x => x.estado == 1).OrderBy(x => x.descripcion).ToList();
+                return context.Producto.Where(x => x.estado == (short)Estado.Activo).OrderBy(x => x.descripcion).ToList();
             }
         }
 
