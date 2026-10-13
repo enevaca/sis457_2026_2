@@ -19,14 +19,19 @@ namespace CpMinerva
             this.frmAutenticacion = frmAutenticacion;
         }
 
-        private void btnProducto_Click(object sender, EventArgs e)
+        private void FrmPrincipal_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            frmAutenticacion.Show();
+        }
+
+        private void btnCaProductos_Click(object sender, EventArgs e)
         {
             new FrmProducto().ShowDialog();
         }
 
-        private void FrmPrincipal_FormClosing(object sender, FormClosingEventArgs e)
+        private void btnAdmEmpleados_Click(object sender, EventArgs e)
         {
-            frmAutenticacion.Show();
+            new FrmEmpleados().ShowDialog();
         }
     }
 }
