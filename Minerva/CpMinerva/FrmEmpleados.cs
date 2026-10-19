@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace CpMinerva
 {
-    public partial class FrmEmpleados : MaterialSkin.Controls.MaterialForm
+    public partial class FrmEmpleados : Form
     {
         public FrmEmpleados()
         {

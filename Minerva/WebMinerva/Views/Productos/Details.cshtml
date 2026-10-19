@@ -1,87 +1,37 @@
 @model WebMinerva.Models.Producto
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalle de Producto";
 }
 
-<h1>Details</h1>
+<h1>Detalle de Producto</h1>
 
 <div>
-    <h4>Producto</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdUnidadMedida)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdUnidadMedida)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Codigo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Codigo)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Descripcion)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Saldo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Saldo)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PrecioVenta)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PrecioVenta)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UsuarioRegistro)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UsuarioRegistro)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaRegistro)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FechaRegistro)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Estado)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Estado)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CompraDetalle)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CompraDetalle)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdUnidadMedidaNavigation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdUnidadMedidaNavigation)
-        </dd>
+        <dt class="col-sm-2">Código</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Codigo)</dd>
+
+        <dt class="col-sm-2">Descripción</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Descripcion)</dd>
+
+        <dt class="col-sm-2">Unidad de Medida</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.IdUnidadMedidaNavigation.Descripcion)</dd>
+
+        <dt class="col-sm-2">Saldo</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Saldo)</dd>
+
+        <dt class="col-sm-2">Precio de Venta</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.PrecioVenta)</dd>
+
+        <dt class="col-sm-2">Usuario Registro</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.UsuarioRegistro)</dd>
+
+        <dt class="col-sm-2">Fecha Registro</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.FechaRegistro)</dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Editar</a> |
+    <a asp-action="Index">Volver a la lista</a>
 </div>

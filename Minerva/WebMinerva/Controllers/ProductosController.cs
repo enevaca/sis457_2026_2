@@ -1,6 +1,8 @@
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebMinerva;
 using WebMinerva.Models;
 
 public class ProductosController : Controller
@@ -13,9 +15,13 @@ public class ProductosController : Controller
     }
 
     // GET: PRODUCTOS
-    public async Task<IActionResult> Index()    
+    public async Task<IActionResult> Index()
     {
-        return View(await _context.Producto.Where(x => x.Estado == 1).ToListAsync());
+        return View(await _context.Producto
+            .Include(x => x.IdUnidadMedidaNavigation)
+            .Where(x => x.Estado == (int)Estado.Activo)
+            .OrderBy(x => x.Descripcion)
+            .ToListAsync());
     }
 
     // GET: PRODUCTOS/Details/5
@@ -27,6 +33,7 @@ public class ProductosController : Controller
         }
 
         var producto = await _context.Producto
+            .Include(x => x.IdUnidadMedidaNavigation)
             .FirstOrDefaultAsync(m => m.Id == id);
         if (producto == null)
         {
@@ -39,6 +46,7 @@ public class ProductosController : Controller
     // GET: PRODUCTOS/Create
     public IActionResult Create()
     {
+        ViewData["UnidadesMedida"] = new SelectList(_context.UnidadMedida.Where(x => x.Estado == (int)Estado.Activo), "Id", "Descripcion");
         return View();
     }
 
@@ -47,14 +55,20 @@ public class ProductosController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,IdUnidadMedida,Codigo,Descripcion,Saldo,PrecioVenta,UsuarioRegistro,FechaRegistro,Estado,CompraDetalle,IdUnidadMedidaNavigation")] Producto producto)
+    public async Task<IActionResult> Create(Producto producto)
     {
-        if (ModelState.IsValid)
+        if (!string.IsNullOrWhiteSpace(producto.Codigo) && !string.IsNullOrWhiteSpace(producto.Descripcion) &&
+            producto.PrecioVenta > 0 && producto.Saldo >= 0 && producto?.IdUnidadMedida != null)
         {
+            producto.UsuarioRegistro = "admin";
+            producto.FechaRegistro = DateTime.Now;
+            producto.Estado = (int)Estado.Activo;
             _context.Add(producto);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        ViewData["UnidadesMedida"] = new SelectList(_context.UnidadMedida.Where(x => x.Estado == (int)Estado.Activo), "Id", "Descripcion");
         return View(producto);
     }
 
@@ -66,11 +80,14 @@ public class ProductosController : Controller
             return NotFound();
         }
 
+        ViewData["UnidadesMedida"] = new SelectList(_context.UnidadMedida.Where(x => x.Estado == (int)Estado.Activo), "Id", "Descripcion");
+
         var producto = await _context.Producto.FindAsync(id);
         if (producto == null)
         {
             return NotFound();
         }
+
         return View(producto);
     }
 
@@ -79,14 +96,17 @@ public class ProductosController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int? id, [Bind("Id,IdUnidadMedida,Codigo,Descripcion,Saldo,PrecioVenta,UsuarioRegistro,FechaRegistro,Estado,CompraDetalle,IdUnidadMedidaNavigation")] Producto producto)
+    public async Task<IActionResult> Edit(int? id, Producto producto)
     {
         if (id != producto.Id)
         {
             return NotFound();
         }
 
-        if (ModelState.IsValid)
+        ViewData["UnidadesMedida"] = new SelectList(_context.UnidadMedida.Where(x => x.Estado == (int)Estado.Activo), "Id", "Descripcion");
+
+        if (!string.IsNullOrWhiteSpace(producto.Codigo) && !string.IsNullOrWhiteSpace(producto.Descripcion) &&
+            producto.PrecioVenta > 0 && producto.Saldo >= 0 && producto?.IdUnidadMedida != null)
         {
             try
             {
@@ -118,6 +138,7 @@ public class ProductosController : Controller
         }
 
         var producto = await _context.Producto
+            .Include(x => x.IdUnidadMedidaNavigation)
             .FirstOrDefaultAsync(m => m.Id == id);
         if (producto == null)
         {
@@ -135,7 +156,9 @@ public class ProductosController : Controller
         var producto = await _context.Producto.FindAsync(id);
         if (producto != null)
         {
-            _context.Producto.Remove(producto);
+            producto.Estado = (int)Estado.Eliminado;
+            _context.Update(producto);
+            //_context.Producto.Remove(producto);
         }
 
         await _context.SaveChangesAsync();

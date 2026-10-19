@@ -1,83 +1,44 @@
 @model IEnumerable<WebMinerva.Models.Producto>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Productos";
 }
 
-<h1>Index</h1>
+<h1>Productos</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Crear Nuevo</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IdUnidadMedida)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Codigo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Saldo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PrecioVenta)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioRegistro)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaRegistro)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdUnidadMedidaNavigation)
-            </th>
+            <th>Código</th>
+            <th>Descripción</th>
+            <th>Unidad de Medida</th>
+            <th>Saldo</th>
+            <th>Precio de Venta</th>
+            <th>Usuario Registro</th>
+            <th>Fecha Registro</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(model => item.IdUnidadMedida)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.Codigo)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.Saldo)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.PrecioVenta)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.UsuarioRegistro)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.FechaRegistro)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.Estado)
-            </td>
-            <td>
-                @Html.DisplayFor(model => item.IdUnidadMedidaNavigation)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(model => item.Codigo)</td>
+                <td>@Html.DisplayFor(model => item.Descripcion)</td>
+                <td>@Html.DisplayFor(model => item.IdUnidadMedidaNavigation.Descripcion)</td>
+                <td>@Html.DisplayFor(model => item.Saldo)</td>
+                <td>@Html.DisplayFor(model => item.PrecioVenta)</td>
+                <td>@Html.DisplayFor(model => item.UsuarioRegistro)</td>
+                <td>@Html.DisplayFor(model => item.FechaRegistro)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalle</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
