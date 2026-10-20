@@ -26,9 +26,22 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Productos" asp-action="Index">Productos</a>
-                        </li>
+                        @if (User.Identity?.IsAuthenticated == false)
+                        {
+                            <li class="nav-item"><a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Iniciar Sesión</a></li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Productos" asp-action="Index">Productos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link text-dark">Hola @User.Identity?.Name</a>
+                            </li>
+                            <li class="nav-item">
+                                @await Html.PartialAsync("_LogoutPartial")
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

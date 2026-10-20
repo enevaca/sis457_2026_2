@@ -1,10 +1,12 @@
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebMinerva;
 using WebMinerva.Models;
 
+[Authorize]
 public class ProductosController : Controller
 {
     private readonly MinervaContext _context;
@@ -60,7 +62,7 @@ public class ProductosController : Controller
         if (!string.IsNullOrWhiteSpace(producto.Codigo) && !string.IsNullOrWhiteSpace(producto.Descripcion) &&
             producto.PrecioVenta > 0 && producto.Saldo >= 0 && producto?.IdUnidadMedida != null)
         {
-            producto.UsuarioRegistro = "admin";
+            producto.UsuarioRegistro = User.Identity.Name;
             producto.FechaRegistro = DateTime.Now;
             producto.Estado = (int)Estado.Activo;
             _context.Add(producto);
@@ -110,6 +112,7 @@ public class ProductosController : Controller
         {
             try
             {
+                producto.UsuarioRegistro = User.Identity.Name;
                 _context.Update(producto);
                 await _context.SaveChangesAsync();
             }

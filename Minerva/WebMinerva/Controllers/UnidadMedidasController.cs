@@ -1,8 +1,10 @@
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebMinerva.Models;
 
+[Authorize]
 public class UnidadMedidasController : Controller
 {
     private readonly MinervaContext _context;
