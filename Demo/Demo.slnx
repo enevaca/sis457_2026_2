@@ -2,5 +2,7 @@
   <Project Path="DemoBiblioteca/DemoBiblioteca.csproj" Id="9174bc98-4018-4e8c-99a3-aee5372a45a4" />
   <Project Path="DemoConsola/DemoConsola.csproj" />
   <Project Path="DemoPrueba/DemoPrueba.csproj" Id="95cc4b79-8228-4518-a8fe-c7aae7b1d016" />
+  <Project Path="DemoWebAPI/DemoWebAPI.csproj" Id="4b069b76-4184-4cd1-b19f-54ee9aaa36e2" />
+  <Project Path="DemoWebBlazor/DemoWebBlazor.csproj" Id="77775b50-2f6b-4cfd-82e4-73601a10805c" />
   <Project Path="TresEnRaya/TresEnRaya.csproj" Id="17497469-73b1-4baa-9cc2-b1e4cec9f5d8" />
 </Solution>
