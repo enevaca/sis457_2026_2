@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MinervaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MinervaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Compra">
           <Key>
             <PropertyRef Name="id" />
@@ -62,6 +62,7 @@
           <Property Name="usuarioRegistro" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="fechaRegistro" Type="datetime" Nullable="false" />
           <Property Name="estado" Type="smallint" Nullable="false" />
+          <Property Name="imagen" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Proveedor">
           <Key>
@@ -191,8 +192,7 @@
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MinervaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -225,7 +225,7 @@
           <Property Name="fechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="estado" Type="Int16" Nullable="false" />
           <NavigationProperty Name="Compra" Relationship="Self.fk_CompraDetalle_Compra" FromRole="CompraDetalle" ToRole="Compra" />
-          <NavigationProperty Name="Producto" Relationship="Self.fk_CompraDetalle_Producto" FromRole="CompraDetalle" ToRole="Producto" />
+          <NavigationProperty Name="Producto" Relationship="MinervaModel.fk_CompraDetalle_Producto" FromRole="CompraDetalle" ToRole="Producto" />
         </EntityType>
         <EntityType Name="Empleado">
           <Key>
@@ -244,22 +244,6 @@
           <Property Name="fechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="estado" Type="Int16" Nullable="false" />
           <NavigationProperty Name="Usuario" Relationship="Self.fk_Usuario_Empleado" FromRole="Empleado" ToRole="Usuario" />
-        </EntityType>
-        <EntityType Name="Producto">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idUnidadMedida" Type="Int32" Nullable="false" />
-          <Property Name="codigo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="saldo" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="precioVenta" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="usuarioRegistro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="fechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="estado" Type="Int16" Nullable="false" />
-          <NavigationProperty Name="CompraDetalle" Relationship="Self.fk_CompraDetalle_Producto" FromRole="Producto" ToRole="CompraDetalle" />
-          <NavigationProperty Name="UnidadMedida" Relationship="Self.fk_Producto_UnidadMedida" FromRole="Producto" ToRole="UnidadMedida" />
         </EntityType>
         <EntityType Name="Proveedor">
           <Key>
@@ -285,7 +269,7 @@
           <Property Name="usuarioRegistro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="fechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="estado" Type="Int16" Nullable="false" />
-          <NavigationProperty Name="Producto" Relationship="Self.fk_Producto_UnidadMedida" FromRole="UnidadMedida" ToRole="Producto" />
+          <NavigationProperty Name="Producto" Relationship="MinervaModel.fk_Producto_UnidadMedida" FromRole="UnidadMedida" ToRole="Producto" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -324,18 +308,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_CompraDetalle_Producto">
-          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
-          <End Role="CompraDetalle" Type="Self.CompraDetalle" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Producto">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="CompraDetalle">
-              <PropertyRef Name="idProducto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_Usuario_Empleado">
           <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
@@ -348,23 +320,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_Producto_UnidadMedida">
-          <End Role="UnidadMedida" Type="Self.UnidadMedida" Multiplicity="1" />
-          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UnidadMedida">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Producto">
-              <PropertyRef Name="idUnidadMedida" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="MinervaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Compra" EntityType="Self.Compra" />
           <EntitySet Name="CompraDetalle" EntityType="Self.CompraDetalle" />
           <EntitySet Name="Empleado" EntityType="Self.Empleado" />
-          <EntitySet Name="Producto" EntityType="Self.Producto" />
           <EntitySet Name="Proveedor" EntityType="Self.Proveedor" />
           <EntitySet Name="UnidadMedida" EntityType="Self.UnidadMedida" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" />
@@ -376,21 +335,22 @@
             <End Role="Compra" EntitySet="Compra" />
             <End Role="CompraDetalle" EntitySet="CompraDetalle" />
           </AssociationSet>
-          <AssociationSet Name="fk_CompraDetalle_Producto" Association="Self.fk_CompraDetalle_Producto">
-            <End Role="Producto" EntitySet="Producto" />
-            <End Role="CompraDetalle" EntitySet="CompraDetalle" />
-          </AssociationSet>
           <AssociationSet Name="fk_Usuario_Empleado" Association="Self.fk_Usuario_Empleado">
             <End Role="Empleado" EntitySet="Empleado" />
             <End Role="Usuario" EntitySet="Usuario" />
           </AssociationSet>
-          <AssociationSet Name="fk_Producto_UnidadMedida" Association="Self.fk_Producto_UnidadMedida">
+          <FunctionImport Name="paProductoListar" ReturnType="Collection(MinervaModel.paProductoListar_Result)">
+          <Parameter Name="parametro" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Producto" EntityType="MinervaModel.Producto" />
+          <AssociationSet Name="fk_CompraDetalle_Producto" Association="MinervaModel.fk_CompraDetalle_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="CompraDetalle" EntitySet="CompraDetalle" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Producto_UnidadMedida" Association="MinervaModel.fk_Producto_UnidadMedida">
             <End Role="UnidadMedida" EntitySet="UnidadMedida" />
             <End Role="Producto" EntitySet="Producto" />
           </AssociationSet>
-          <FunctionImport Name="paProductoListar" ReturnType="Collection(MinervaModel.paProductoListar_Result)">
-            <Parameter Name="parametro" Mode="In" Type="String" />
-          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="paProductoListar_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -404,6 +364,47 @@
           <Property Type="DateTime" Name="fechaRegistro" Nullable="false" Precision="23" />
           <Property Type="Int16" Name="estado" Nullable="false" />
         </ComplexType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUnidadMedida" Type="Int32" Nullable="false" />
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="saldo" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="precioVenta" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="usuarioRegistro" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="estado" Type="Int16" Nullable="false" />
+          <Property Name="imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="CompraDetalle" Relationship="MinervaModel.fk_CompraDetalle_Producto" FromRole="Producto" ToRole="CompraDetalle" />
+          <NavigationProperty Name="UnidadMedida" Relationship="MinervaModel.fk_Producto_UnidadMedida" FromRole="Producto" ToRole="UnidadMedida" />
+        </EntityType>
+        <Association Name="fk_CompraDetalle_Producto">
+          <End Type="MinervaModel.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="MinervaModel.CompraDetalle" Role="CompraDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="CompraDetalle">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Producto_UnidadMedida">
+          <End Type="MinervaModel.UnidadMedida" Role="UnidadMedida" Multiplicity="1" />
+          <End Type="MinervaModel.Producto" Role="Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UnidadMedida">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="idUnidadMedida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -451,21 +452,6 @@
                 <ScalarProperty Name="direccion" ColumnName="direccion" />
                 <ScalarProperty Name="celular" ColumnName="celular" />
                 <ScalarProperty Name="cargo" ColumnName="cargo" />
-                <ScalarProperty Name="usuarioRegistro" ColumnName="usuarioRegistro" />
-                <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Producto">
-            <EntityTypeMapping TypeName="MinervaModel.Producto">
-              <MappingFragment StoreEntitySet="Producto">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="idUnidadMedida" ColumnName="idUnidadMedida" />
-                <ScalarProperty Name="codigo" ColumnName="codigo" />
-                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-                <ScalarProperty Name="saldo" ColumnName="saldo" />
-                <ScalarProperty Name="precioVenta" ColumnName="precioVenta" />
                 <ScalarProperty Name="usuarioRegistro" ColumnName="usuarioRegistro" />
                 <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
@@ -527,6 +513,22 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="MinervaModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="imagen" ColumnName="imagen" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
+                <ScalarProperty Name="usuarioRegistro" ColumnName="usuarioRegistro" />
+                <ScalarProperty Name="precioVenta" ColumnName="precioVenta" />
+                <ScalarProperty Name="saldo" ColumnName="saldo" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="idUnidadMedida" ColumnName="idUnidadMedida" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

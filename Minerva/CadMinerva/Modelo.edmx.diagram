@@ -8,15 +8,15 @@
         <EntityTypeShape EntityType="MinervaModel.Compra" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MinervaModel.CompraDetalle" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="MinervaModel.Empleado" Width="1.5" PointX="5.75" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="MinervaModel.Producto" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="MinervaModel.Proveedor" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="MinervaModel.UnidadMedida" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="MinervaModel.Usuario" Width="1.5" PointX="8" PointY="6.5" IsExpanded="true" />
         <AssociationConnector Association="MinervaModel.fk_Compra_Proveedor" ManuallyRouted="false" />
         <AssociationConnector Association="MinervaModel.fk_CompraDetalle_Compra" ManuallyRouted="false" />
-        <AssociationConnector Association="MinervaModel.fk_CompraDetalle_Producto" ManuallyRouted="false" />
         <AssociationConnector Association="MinervaModel.fk_Usuario_Empleado" ManuallyRouted="false" />
-        <AssociationConnector Association="MinervaModel.fk_Producto_UnidadMedida" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MinervaModel.Producto" Width="1.5" PointX="3" PointY="0.875" />
+        <AssociationConnector Association="MinervaModel.fk_CompraDetalle_Producto" />
+        <AssociationConnector Association="MinervaModel.fk_Producto_UnidadMedida" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

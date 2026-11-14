@@ -58,6 +58,10 @@
             this.erpCodigo = new System.Windows.Forms.ErrorProvider(this.components);
             this.erpDescripcion = new System.Windows.Forms.ErrorProvider(this.components);
             this.erpPrecioVenta = new System.Windows.Forms.ErrorProvider(this.components);
+            this.pbImagen = new System.Windows.Forms.PictureBox();
+            this.btnSeleccionarImagen = new System.Windows.Forms.Button();
+            this.btnQuitarImagen = new System.Windows.Forms.Button();
+            this.ofdImagen = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLista)).BeginInit();
             this.gbxLista.SuspendLayout();
             this.pnlAcciones.SuspendLayout();
@@ -68,6 +72,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.erpCodigo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpDescripcion)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpPrecioVenta)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImagen)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvLista
@@ -187,6 +192,9 @@
             // 
             // gbxDatos
             // 
+            this.gbxDatos.Controls.Add(this.pbImagen);
+            this.gbxDatos.Controls.Add(this.btnQuitarImagen);
+            this.gbxDatos.Controls.Add(this.btnSeleccionarImagen);
             this.gbxDatos.Controls.Add(this.btnGuardar);
             this.gbxDatos.Controls.Add(this.btnCancelar);
             this.gbxDatos.Controls.Add(this.nudSaldo);
@@ -210,9 +218,9 @@
             // 
             this.btnGuardar.Image = global::CpMinerva.Properties.Resources.save;
             this.btnGuardar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnGuardar.Location = new System.Drawing.Point(758, 53);
+            this.btnGuardar.Location = new System.Drawing.Point(750, 59);
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(101, 42);
+            this.btnGuardar.Size = new System.Drawing.Size(105, 42);
             this.btnGuardar.TabIndex = 10;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -223,7 +231,7 @@
             // 
             this.btnCancelar.Image = global::CpMinerva.Properties.Resources.cancel;
             this.btnCancelar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancelar.Location = new System.Drawing.Point(647, 53);
+            this.btnCancelar.Location = new System.Drawing.Point(750, 11);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(105, 42);
             this.btnCancelar.TabIndex = 10;
@@ -234,7 +242,7 @@
             // 
             // nudSaldo
             // 
-            this.nudSaldo.Location = new System.Drawing.Point(542, 45);
+            this.nudSaldo.Location = new System.Drawing.Point(524, 42);
             this.nudSaldo.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -247,7 +255,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(420, 48);
+            this.label2.Location = new System.Drawing.Point(402, 45);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(50, 18);
             this.label2.TabIndex = 8;
@@ -256,7 +264,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(420, 20);
+            this.label1.Location = new System.Drawing.Point(402, 17);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(116, 18);
             this.label1.TabIndex = 7;
@@ -264,7 +272,7 @@
             // 
             // nudPrecioVenta
             // 
-            this.nudPrecioVenta.Location = new System.Drawing.Point(542, 18);
+            this.nudPrecioVenta.Location = new System.Drawing.Point(524, 15);
             this.nudPrecioVenta.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -356,6 +364,44 @@
             // 
             this.erpPrecioVenta.ContainerControl = this;
             // 
+            // pbImagen
+            // 
+            this.pbImagen.Image = global::CpMinerva.Properties.Resources.sin_imagen;
+            this.pbImagen.Location = new System.Drawing.Point(629, 8);
+            this.pbImagen.Name = "pbImagen";
+            this.pbImagen.Size = new System.Drawing.Size(98, 96);
+            this.pbImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbImagen.TabIndex = 11;
+            this.pbImagen.TabStop = false;
+            // 
+            // btnSeleccionarImagen
+            // 
+            this.btnSeleccionarImagen.Image = global::CpMinerva.Properties.Resources.search;
+            this.btnSeleccionarImagen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSeleccionarImagen.Location = new System.Drawing.Point(529, 65);
+            this.btnSeleccionarImagen.Name = "btnSeleccionarImagen";
+            this.btnSeleccionarImagen.Size = new System.Drawing.Size(45, 42);
+            this.btnSeleccionarImagen.TabIndex = 11;
+            this.btnSeleccionarImagen.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSeleccionarImagen.UseVisualStyleBackColor = true;
+            this.btnSeleccionarImagen.Click += new System.EventHandler(this.btnSeleccionarImagen_Click);
+            // 
+            // btnQuitarImagen
+            // 
+            this.btnQuitarImagen.Image = global::CpMinerva.Properties.Resources.cancel;
+            this.btnQuitarImagen.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnQuitarImagen.Location = new System.Drawing.Point(580, 65);
+            this.btnQuitarImagen.Name = "btnQuitarImagen";
+            this.btnQuitarImagen.Size = new System.Drawing.Size(43, 42);
+            this.btnQuitarImagen.TabIndex = 12;
+            this.btnQuitarImagen.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnQuitarImagen.UseVisualStyleBackColor = true;
+            this.btnQuitarImagen.Click += new System.EventHandler(this.btnQuitarImagen_Click);
+            // 
+            // ofdImagen
+            // 
+            this.ofdImagen.FileName = "openFileDialog1";
+            // 
             // FrmProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -387,6 +433,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.erpCodigo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpDescripcion)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.erpPrecioVenta)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImagen)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -422,6 +469,10 @@
         private System.Windows.Forms.ErrorProvider erpCodigo;
         private System.Windows.Forms.ErrorProvider erpDescripcion;
         private System.Windows.Forms.ErrorProvider erpPrecioVenta;
+        private System.Windows.Forms.PictureBox pbImagen;
+        private System.Windows.Forms.Button btnQuitarImagen;
+        private System.Windows.Forms.Button btnSeleccionarImagen;
+        private System.Windows.Forms.OpenFileDialog ofdImagen;
     }
 }
 

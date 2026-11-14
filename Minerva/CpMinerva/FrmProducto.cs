@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace CpMinerva
     public partial class FrmProducto : Form
     {
         private bool esNuevo;
+        private byte[] imagenBytes;
         public FrmProducto()
         {
             InitializeComponent();
@@ -104,6 +106,8 @@ namespace CpMinerva
             txtDescripcion.Text = producto.descripcion;
             nudPrecioVenta.Value = producto.precioVenta;
             nudSaldo.Value = producto.saldo;
+            if (producto.imagen != null) pbImagen.Image = Util.ByteArrayToImage(producto.imagen);
+            else pbImagen.Image = Properties.Resources.sin_imagen;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -153,6 +157,7 @@ namespace CpMinerva
                     idUnidadMedida = (int)cbxUnidadMedida.SelectedValue,
                     precioVenta = nudPrecioVenta.Value,
                     saldo = nudSaldo.Value,
+                    imagen = imagenBytes,
                     usuarioRegistro = Util.usuario.usuario1
                 };
 
@@ -200,6 +205,34 @@ namespace CpMinerva
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void btnSeleccionarImagen_Click(object sender, EventArgs e)
+        {
+            ofdImagen.Filter = "Archivos de Imagen|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
+            ofdImagen.Title = "Seleccione una imagen";
+            ofdImagen.FileName = string.Empty;
+
+            if (ofdImagen.ShowDialog() == DialogResult.OK)
+            {
+                string rutaArchivo = ofdImagen.FileName;
+
+                using (FileStream fs = new FileStream(rutaArchivo, FileMode.Open, FileAccess.Read))
+                {
+                    pbImagen.Image = Image.FromStream(fs);
+                    imagenBytes = File.ReadAllBytes(rutaArchivo);
+                }
+            }
+        }
+
+        private void btnQuitarImagen_Click(object sender, EventArgs e)
+        {
+            if (pbImagen.Image != null)
+            {
+                pbImagen.Image.Dispose();
+                pbImagen.Image = null;
+                imagenBytes = null;
+            }
         }
     }
 }

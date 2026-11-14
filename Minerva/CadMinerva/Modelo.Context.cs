@@ -30,10 +30,10 @@ namespace CadMinerva
         public virtual DbSet<Compra> Compra { get; set; }
         public virtual DbSet<CompraDetalle> CompraDetalle { get; set; }
         public virtual DbSet<Empleado> Empleado { get; set; }
-        public virtual DbSet<Producto> Producto { get; set; }
         public virtual DbSet<Proveedor> Proveedor { get; set; }
         public virtual DbSet<UnidadMedida> UnidadMedida { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<Producto> Producto { get; set; }
     
         public virtual ObjectResult<paProductoListar_Result> paProductoListar(string parametro)
         {

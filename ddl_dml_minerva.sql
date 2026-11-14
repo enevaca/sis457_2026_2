@@ -109,6 +109,8 @@ ALTER TABLE CompraDetalle ADD usuarioRegistro VARCHAR(50) NOT NULL DEFAULT SUSER
 ALTER TABLE CompraDetalle ADD fechaRegistro DATETIME NOT NULL DEFAULT GETDATE();
 ALTER TABLE CompraDetalle ADD estado SMALLINT NOT NULL DEFAULT 1; -- -1: Eliminado, 0: Inactivo, 1: Activo
 
+ALTER TABLE Producto ADD imagen VARBINARY(MAX) NULL;
+
 GO
 DROP PROC IF EXISTS paProductoListar;
 GO

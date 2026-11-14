@@ -34,6 +34,7 @@ namespace ClnMinerva
                 existe.descripcion = producto.descripcion;
                 existe.saldo = producto.saldo;
                 existe.precioVenta = producto.precioVenta;
+                existe.imagen = producto.imagen;
                 existe.usuarioRegistro = producto.usuarioRegistro;
 
                 return context.SaveChanges();
